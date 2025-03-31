@@ -14,10 +14,11 @@ module.exports = (sequelize, DataTypes) => {
   }
   User.init(
     {
+      auth0_id: { type: DataTypes.STRING, unique: true },
       username: DataTypes.STRING,
       email: DataTypes.STRING,
       password_hash: DataTypes.STRING,
-      balance: DataTypes.DECIMAL,
+      balance: { type: DataTypes.DECIMAL(10, 2), defaultValue: 0.0 },
       created_at: DataTypes.DATE,
     },
     {
