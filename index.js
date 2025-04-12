@@ -9,6 +9,7 @@ const basketballRouter = require("./router/basketballRouter");
 const nflRouter = require("./router/nflRouter");
 const userRouter = require("./router/userRouter");
 const transactionRouter = require("./router/transactionRouter");
+const betRouter = require("./router/betRouter");
 
 app.use(cors());
 app.use(express.json());
@@ -18,10 +19,8 @@ app.use("/api/basketball", basketballRouter);
 app.use("/api/nfl", nflRouter);
 app.use("/users", userRouter);
 app.use("/accounts", transactionRouter);
-app.use((req, res, next) => {
-  console.log(`[Request] ${req.method} ${req.originalUrl}`);
-  next();
-});
+app.use("/", betRouter);
 
+require("./jobs/resolveFinishedMatches");
 console.log("Successfully connected to sportbetDB!");
 app.listen(port, () => console.log(`Server running on port ${port}`));
